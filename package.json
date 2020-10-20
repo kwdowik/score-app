@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/cypress": "^7.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@xstate/react": "^1.0.1",
@@ -12,7 +13,9 @@
     "xstate": "^4.13.0"
   },
   "scripts": {
-    "start": "react-scripts start", 
+    "start": "react-scripts start",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -34,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^5.4.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.1",
