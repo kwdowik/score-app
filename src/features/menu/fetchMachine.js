@@ -76,7 +76,7 @@ const request = (response, failure) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (failure) {
-        reject('Cannot load menu, please retry.');
+        reject('Error: cannot load menu data.');
       }
       resolve(response);
     }, 2000);
