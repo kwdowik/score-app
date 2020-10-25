@@ -1,17 +1,23 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: ['airbnb/base', 'plugin:react/recommended', 'eslint-config-prettier',  'plugin:cypress/recommended'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'eslint-plugin-prettier', 'import'],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: [
+          ".js",
+          ".jsx"
+        ]
+      }
+    }
+  },
   rules: {
     'prettier/prettier': ['error'],
   },
