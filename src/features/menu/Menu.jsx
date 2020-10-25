@@ -3,7 +3,7 @@ import { useMachine } from '@xstate/react';
 import { fetchMachine } from './fetchMachine';
 import styles from './Menu.module.css';
 
-export function Menu() {
+function Menu() {
   const [state, send] = useMachine(fetchMachine);
 
   const isLoading = state.value === 'loading';
@@ -62,3 +62,5 @@ export function Menu() {
     </div>
   );
 }
+
+export default Menu;
