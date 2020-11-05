@@ -7,7 +7,7 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react', 'eslint-plugin-prettier', 'import'],
+  plugins: ['react', 'eslint-plugin-prettier'],
   settings: {
     'import/resolver': {
       node: {
@@ -20,5 +20,6 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'import/prefer-default-export': 0,
   },
 };
