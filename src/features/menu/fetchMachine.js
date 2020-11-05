@@ -1,12 +1,16 @@
 import { Machine, assign } from 'xstate';
+import { isEmpty, omit } from 'lodash/fp';
+import { httpClient } from '../../utils/asyncUtils';
 
 const fetchMachine = Machine(
   {
     id: 'fetch',
     initial: 'idle',
     context: {
-      results: [],
-      message: '',
+      result: {
+        error: null,
+        teams: [],
+      },
     },
     states: {
       idle: {
@@ -38,49 +42,27 @@ const fetchMachine = Machine(
   {
     services: {
       fetchData: async (ctx, event) => {
-        const resp = await request(response, event.failure);
+        const payload = omit('type', event);
+        const resp = await httpClient.get(`http://localhost:8080/${event.endpoint}`, {
+          params: !isEmpty(payload) && event.type === 'FETCH' ? payload : undefined,
+        });
         return resp.data;
       },
     },
     actions: {
       setResults: assign((ctx, event) => ({
-        message: '',
-        results: event.data,
+        result: {
+          error: null,
+          ...event.data,
+        },
       })),
       setMessage: assign((ctx, event) => ({
-        message: event.data,
-        results: [],
+        result: {
+          error: event.data,
+        },
       })),
     },
   }
 );
-
-const response = {
-  data: [
-    {
-      id: 1,
-      text: 'Chocolate 🍫',
-    },
-    {
-      id: 2,
-      text: 'Cookie 🍪',
-    },
-    {
-      id: 3,
-      text: 'Doughnut 🍩',
-    },
-  ],
-};
-
-const request = (response, failure) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (failure) {
-        reject('Error: cannot load menu data.');
-      }
-      resolve(response);
-    }, 2000);
-  });
-};
 
 export { fetchMachine };
