@@ -1,0 +1,19 @@
+version: "3"
+services:
+  api:
+    env_file:
+      - "config/.env.${ENVIRONMENT}"
+    container_name: score-api
+    restart: on-failure
+    image: kwdowik/score-api:${TAG}
+    ports:
+      - "8080:${API_PORT}"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"

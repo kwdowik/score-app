@@ -16,11 +16,16 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:browser-none": "BROWSER=none react-scripts start",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "start-server-and-test start http://localhost:3000 cy:run",
+    "docker:clear": "docker stop score-api mongo && docker rm score-api mongo",
+    "docker:dev": "docker-compose --env-file config/.env.development up -d --force-recreate",
+    "docker:staging": "docker-compose --env-file config/.env.staging up -d --force-recreate",
+    "test:e2e": "start-server-and-test start:browser-none http://localhost:3000 cy:run",
+    "test:e2e-full": ". scripts/test.e2e.sh",
     "lint": "./node_modules/.bin/eslint src/**/*.jsx"
   },
   "eslintConfig": {

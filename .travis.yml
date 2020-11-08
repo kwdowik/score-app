@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 14
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+cache:
+  npm: true
+  directories:
+    - ~/.cache
+install:
+  - yarn install --frozen-lockfile
+script:
+  - yarn run test:e2e-full
