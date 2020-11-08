@@ -1,6 +1,15 @@
 language: node_js
 node_js:
   - 14
+env:
+  - DOCKER_COMPOSE_VERSION=1.27.4
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+services:
+  - docker
 addons:
   apt:
     packages:
@@ -11,5 +20,9 @@ cache:
     - ~/.cache
 install:
   - yarn install --frozen-lockfile
+before_script:
+  - yarn docker:staging
 script:
-  - yarn run test:e2e-full
+  - yarn run test:e2e
+after_script:
+  - yarn docker:clear

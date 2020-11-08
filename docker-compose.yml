@@ -2,7 +2,7 @@ version: "3"
 services:
   api:
     env_file:
-      - "config/.env.${ENVIRONMENT}"
+      - "./config/.env.${ENVIRONMENT}"
     container_name: score-api
     restart: on-failure
     image: kwdowik/score-api:${TAG}
