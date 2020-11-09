@@ -23,6 +23,6 @@ install:
 before_script:
   - yarn docker:staging
 script:
-  - yarn run test:e2e
+  - yarn run test:e2e:in-container
 after_script:
   - yarn docker:clear
